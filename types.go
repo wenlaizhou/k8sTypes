@@ -668,7 +668,7 @@ type HTTPHeader struct {
 
 type HTTPGetAction struct {
 	Path        string       `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
-	Port        IntOrString  `json:"port" protobuf:"bytes,2,opt,name=port"`
+	Port        string       `json:"port" protobuf:"bytes,2,opt,name=port"`
 	Host        string       `json:"host,omitempty" protobuf:"bytes,3,opt,name=host"`
 	Scheme      URIScheme    `json:"scheme,omitempty" protobuf:"bytes,4,opt,name=scheme,casttype=URIScheme"`
 	HTTPHeaders []HTTPHeader `json:"httpHeaders,omitempty" protobuf:"bytes,5,rep,name=httpHeaders"`
@@ -682,8 +682,8 @@ const (
 )
 
 type TCPSocketAction struct {
-	Port IntOrString `json:"port" protobuf:"bytes,1,opt,name=port"`
-	Host string      `json:"host,omitempty" protobuf:"bytes,2,opt,name=host"`
+	Port string `json:"port" protobuf:"bytes,1,opt,name=port"`
+	Host string `json:"host,omitempty" protobuf:"bytes,2,opt,name=host"`
 }
 
 type ExecAction struct {
@@ -1189,11 +1189,11 @@ type ServiceSpec struct {
 }
 
 type ServicePort struct {
-	Name       string      `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
-	Protocol   Protocol    `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
-	Port       int32       `json:"port" protobuf:"varint,3,opt,name=port"`
-	TargetPort IntOrString `json:"targetPort,omitempty" protobuf:"bytes,4,opt,name=targetPort"`
-	NodePort   int32       `json:"nodePort,omitempty" protobuf:"varint,5,opt,name=nodePort"`
+	Name       string   `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Protocol   Protocol `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
+	Port       int32    `json:"port" protobuf:"varint,3,opt,name=port"`
+	TargetPort string   `json:"targetPort,omitempty" protobuf:"bytes,4,opt,name=targetPort"`
+	NodePort   int32    `json:"nodePort,omitempty" protobuf:"varint,5,opt,name=nodePort"`
 }
 
 type Service struct {
@@ -2018,8 +2018,8 @@ const (
 )
 
 type RollingUpdateDeployment struct {
-	MaxUnavailable *IntOrString `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
-	MaxSurge       *IntOrString `json:"maxSurge,omitempty" protobuf:"bytes,2,opt,name=maxSurge"`
+	MaxUnavailable string `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
+	MaxSurge       string `json:"maxSurge,omitempty" protobuf:"bytes,2,opt,name=maxSurge"`
 }
 
 type DeploymentStatus struct {
@@ -2069,7 +2069,7 @@ const (
 )
 
 type RollingUpdateDaemonSet struct {
-	MaxUnavailable *IntOrString `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
+	MaxUnavailable string `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
 }
 
 type DaemonSetSpec struct {
