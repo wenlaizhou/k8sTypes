@@ -211,7 +211,7 @@ type HostPathVolumeSource struct {
 }
 type EmptyDirVolumeSource struct {
 	Medium    StorageMedium `json:"medium,omitempty" protobuf:"bytes,1,opt,name=medium,casttype=StorageMedium"`
-	SizeLimit float64       `json:"sizeLimit,omitempty" protobuf:"bytes,2,opt,name=sizeLimit"`
+	SizeLimit string        `json:"sizeLimit,omitempty" protobuf:"bytes,2,opt,name=sizeLimit"`
 }
 type GlusterfsVolumeSource struct {
 	EndpointsName string `json:"endpoints" protobuf:"bytes,1,opt,name=endpoints"`
@@ -569,9 +569,9 @@ type ObjectFieldSelector struct {
 	FieldPath  string `json:"fieldPath" protobuf:"bytes,2,opt,name=fieldPath"`
 }
 type ResourceFieldSelector struct {
-	ContainerName string  `json:"containerName,omitempty" protobuf:"bytes,1,opt,name=containerName"`
-	Resource      string  `json:"resource" protobuf:"bytes,2,opt,name=resource"`
-	Divisor       float64 `json:"divisor,omitempty" protobuf:"bytes,3,opt,name=divisor"`
+	ContainerName string `json:"containerName,omitempty" protobuf:"bytes,1,opt,name=containerName"`
+	Resource      string `json:"resource" protobuf:"bytes,2,opt,name=resource"`
+	Divisor       string `json:"divisor,omitempty" protobuf:"bytes,3,opt,name=divisor"`
 }
 type ConfigMapKeySelector struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
@@ -1268,7 +1268,7 @@ const (
 	ResourceAttachableVolumesPrefix = "attachable-volumes-"
 )
 
-type ResourceList map[ResourceName]float64
+type ResourceList map[ResourceName]string
 type Node struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
