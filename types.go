@@ -13,10 +13,12 @@ const (
 type MicroTime struct {
 	time.Time `protobuf:"-"`
 }
+
 type Volume struct {
 	Name         string `json:"name" protobuf:"bytes,1,opt,name=name"`
 	VolumeSource `json:",inline" protobuf:"bytes,2,opt,name=volumeSource"`
 }
+
 type VolumeSource struct {
 	HostPath              *HostPathVolumeSource              `json:"hostPath,omitempty" protobuf:"bytes,1,opt,name=hostPath"`
 	EmptyDir              *EmptyDirVolumeSource              `json:"emptyDir,omitempty" protobuf:"bytes,2,opt,name=emptyDir"`
@@ -46,10 +48,12 @@ type VolumeSource struct {
 	ScaleIO               *ScaleIOVolumeSource               `json:"scaleIO,omitempty" protobuf:"bytes,25,opt,name=scaleIO"`
 	StorageOS             *StorageOSVolumeSource             `json:"storageos,omitempty" protobuf:"bytes,27,opt,name=storageos"`
 }
+
 type PersistentVolumeClaimVolumeSource struct {
 	ClaimName string `json:"claimName" protobuf:"bytes,1,opt,name=claimName"`
 	ReadOnly  bool   `json:"readOnly,omitempty" protobuf:"varint,2,opt,name=readOnly"`
 }
+
 type PersistentVolumeSource struct {
 	GCEPersistentDisk    *GCEPersistentDiskVolumeSource    `json:"gcePersistentDisk,omitempty" protobuf:"bytes,1,opt,name=gcePersistentDisk"`
 	AWSElasticBlockStore *AWSElasticBlockStoreVolumeSource `json:"awsElasticBlockStore,omitempty" protobuf:"bytes,2,opt,name=awsElasticBlockStore"`
@@ -86,6 +90,7 @@ type PersistentVolume struct {
 	Spec       PersistentVolumeSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     PersistentVolumeStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type PersistentVolumeSpec struct {
 	Capacity                      ResourceList `json:"capacity,omitempty" protobuf:"bytes,1,rep,name=capacity,casttype=ResourceList,castkey=ResourceName"`
 	PersistentVolumeSource        `json:",inline" protobuf:"bytes,2,opt,name=persistentVolumeSource"`
@@ -97,9 +102,11 @@ type PersistentVolumeSpec struct {
 	VolumeMode                    *PersistentVolumeMode         `json:"volumeMode,omitempty" protobuf:"bytes,8,opt,name=volumeMode,casttype=PersistentVolumeMode"`
 	NodeAffinity                  *VolumeNodeAffinity           `json:"nodeAffinity,omitempty" protobuf:"bytes,9,opt,name=nodeAffinity"`
 }
+
 type VolumeNodeAffinity struct {
 	Required *NodeSelector `json:"required,omitempty" protobuf:"bytes,1,opt,name=required"`
 }
+
 type PersistentVolumeReclaimPolicy string
 
 const (
@@ -120,22 +127,26 @@ type PersistentVolumeStatus struct {
 	Message string                `json:"message,omitempty" protobuf:"bytes,2,opt,name=message"`
 	Reason  string                `json:"reason,omitempty" protobuf:"bytes,3,opt,name=reason"`
 }
+
 type PersistentVolumeList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []PersistentVolume `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type PersistentVolumeClaim struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       PersistentVolumeClaimSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     PersistentVolumeClaimStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type PersistentVolumeClaimList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []PersistentVolumeClaim `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type PersistentVolumeClaimSpec struct {
 	AccessModes      []PersistentVolumeAccessMode `json:"accessModes,omitempty" protobuf:"bytes,1,rep,name=accessModes,casttype=PersistentVolumeAccessMode"`
 	Selector         *LabelSelector               `json:"selector,omitempty" protobuf:"bytes,4,opt,name=selector"`
@@ -145,6 +156,7 @@ type PersistentVolumeClaimSpec struct {
 	VolumeMode       *PersistentVolumeMode        `json:"volumeMode,omitempty" protobuf:"bytes,6,opt,name=volumeMode,casttype=PersistentVolumeMode"`
 	DataSource       *TypedLocalObjectReference   `json:"dataSource" protobuf:"bytes,7,opt,name=dataSource"`
 }
+
 type PersistentVolumeClaimConditionType string
 
 const (
@@ -160,12 +172,14 @@ type PersistentVolumeClaimCondition struct {
 	Reason             string                             `json:"reason,omitempty" protobuf:"bytes,5,opt,name=reason"`
 	Message            string                             `json:"message,omitempty" protobuf:"bytes,6,opt,name=message"`
 }
+
 type PersistentVolumeClaimStatus struct {
 	Phase       PersistentVolumeClaimPhase       `json:"phase,omitempty" protobuf:"bytes,1,opt,name=phase,casttype=PersistentVolumeClaimPhase"`
 	AccessModes []PersistentVolumeAccessMode     `json:"accessModes,omitempty" protobuf:"bytes,2,rep,name=accessModes,casttype=PersistentVolumeAccessMode"`
 	Capacity    ResourceList                     `json:"capacity,omitempty" protobuf:"bytes,3,rep,name=capacity,casttype=ResourceList,castkey=ResourceName"`
 	Conditions  []PersistentVolumeClaimCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,4,rep,name=conditions"`
 }
+
 type PersistentVolumeAccessMode string
 
 const (
@@ -209,21 +223,25 @@ type HostPathVolumeSource struct {
 	Path string        `json:"path" protobuf:"bytes,1,opt,name=path"`
 	Type *HostPathType `json:"type,omitempty" protobuf:"bytes,2,opt,name=type"`
 }
+
 type EmptyDirVolumeSource struct {
 	Medium    StorageMedium `json:"medium,omitempty" protobuf:"bytes,1,opt,name=medium,casttype=StorageMedium"`
 	SizeLimit string        `json:"sizeLimit,omitempty" protobuf:"bytes,2,opt,name=sizeLimit"`
 }
+
 type GlusterfsVolumeSource struct {
 	EndpointsName string `json:"endpoints" protobuf:"bytes,1,opt,name=endpoints"`
 	Path          string `json:"path" protobuf:"bytes,2,opt,name=path"`
 	ReadOnly      bool   `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 }
+
 type GlusterfsPersistentVolumeSource struct {
 	EndpointsName      string  `json:"endpoints" protobuf:"bytes,1,opt,name=endpoints"`
 	Path               string  `json:"path" protobuf:"bytes,2,opt,name=path"`
 	ReadOnly           bool    `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 	EndpointsNamespace *string `json:"endpointsNamespace,omitempty" protobuf:"bytes,4,opt,name=endpointsNamespace"`
 }
+
 type RBDVolumeSource struct {
 	CephMonitors []string              `json:"monitors" protobuf:"bytes,1,rep,name=monitors"`
 	RBDImage     string                `json:"image" protobuf:"bytes,2,opt,name=image"`
@@ -234,6 +252,7 @@ type RBDVolumeSource struct {
 	SecretRef    *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,7,opt,name=secretRef"`
 	ReadOnly     bool                  `json:"readOnly,omitempty" protobuf:"varint,8,opt,name=readOnly"`
 }
+
 type RBDPersistentVolumeSource struct {
 	CephMonitors []string         `json:"monitors" protobuf:"bytes,1,rep,name=monitors"`
 	RBDImage     string           `json:"image" protobuf:"bytes,2,opt,name=image"`
@@ -244,18 +263,21 @@ type RBDPersistentVolumeSource struct {
 	SecretRef    *SecretReference `json:"secretRef,omitempty" protobuf:"bytes,7,opt,name=secretRef"`
 	ReadOnly     bool             `json:"readOnly,omitempty" protobuf:"varint,8,opt,name=readOnly"`
 }
+
 type CinderVolumeSource struct {
 	VolumeID  string                `json:"volumeID" protobuf:"bytes,1,opt,name=volumeID"`
 	FSType    string                `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 	ReadOnly  bool                  `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 	SecretRef *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,4,opt,name=secretRef"`
 }
+
 type CinderPersistentVolumeSource struct {
 	VolumeID  string           `json:"volumeID" protobuf:"bytes,1,opt,name=volumeID"`
 	FSType    string           `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 	ReadOnly  bool             `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 	SecretRef *SecretReference `json:"secretRef,omitempty" protobuf:"bytes,4,opt,name=secretRef"`
 }
+
 type CephFSVolumeSource struct {
 	Monitors   []string              `json:"monitors" protobuf:"bytes,1,rep,name=monitors"`
 	Path       string                `json:"path,omitempty" protobuf:"bytes,2,opt,name=path"`
@@ -264,10 +286,12 @@ type CephFSVolumeSource struct {
 	SecretRef  *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,5,opt,name=secretRef"`
 	ReadOnly   bool                  `json:"readOnly,omitempty" protobuf:"varint,6,opt,name=readOnly"`
 }
+
 type SecretReference struct {
 	Name      string `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Namespace string `json:"namespace,omitempty" protobuf:"bytes,2,opt,name=namespace"`
 }
+
 type CephFSPersistentVolumeSource struct {
 	Monitors   []string         `json:"monitors" protobuf:"bytes,1,rep,name=monitors"`
 	Path       string           `json:"path,omitempty" protobuf:"bytes,2,opt,name=path"`
@@ -276,10 +300,12 @@ type CephFSPersistentVolumeSource struct {
 	SecretRef  *SecretReference `json:"secretRef,omitempty" protobuf:"bytes,5,opt,name=secretRef"`
 	ReadOnly   bool             `json:"readOnly,omitempty" protobuf:"varint,6,opt,name=readOnly"`
 }
+
 type FlockerVolumeSource struct {
 	DatasetName string `json:"datasetName,omitempty" protobuf:"bytes,1,opt,name=datasetName"`
 	DatasetUUID string `json:"datasetUUID,omitempty" protobuf:"bytes,2,opt,name=datasetUUID"`
 }
+
 type StorageMedium string
 
 const (
@@ -302,6 +328,7 @@ type GCEPersistentDiskVolumeSource struct {
 	Partition int32  `json:"partition,omitempty" protobuf:"varint,3,opt,name=partition"`
 	ReadOnly  bool   `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 }
+
 type QuobyteVolumeSource struct {
 	Registry string `json:"registry" protobuf:"bytes,1,opt,name=registry"`
 	Volume   string `json:"volume" protobuf:"bytes,2,opt,name=volume"`
@@ -309,6 +336,7 @@ type QuobyteVolumeSource struct {
 	User     string `json:"user,omitempty" protobuf:"bytes,4,opt,name=user"`
 	Group    string `json:"group,omitempty" protobuf:"bytes,5,opt,name=group"`
 }
+
 type FlexPersistentVolumeSource struct {
 	Driver    string            `json:"driver" protobuf:"bytes,1,opt,name=driver"`
 	FSType    string            `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
@@ -316,6 +344,7 @@ type FlexPersistentVolumeSource struct {
 	ReadOnly  bool              `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 	Options   map[string]string `json:"options,omitempty" protobuf:"bytes,5,rep,name=options"`
 }
+
 type FlexVolumeSource struct {
 	Driver    string                `json:"driver" protobuf:"bytes,1,opt,name=driver"`
 	FSType    string                `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
@@ -323,17 +352,20 @@ type FlexVolumeSource struct {
 	ReadOnly  bool                  `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 	Options   map[string]string     `json:"options,omitempty" protobuf:"bytes,5,rep,name=options"`
 }
+
 type AWSElasticBlockStoreVolumeSource struct {
 	VolumeID  string `json:"volumeID" protobuf:"bytes,1,opt,name=volumeID"`
 	FSType    string `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 	Partition int32  `json:"partition,omitempty" protobuf:"varint,3,opt,name=partition"`
 	ReadOnly  bool   `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 }
+
 type GitRepoVolumeSource struct {
 	Repository string `json:"repository" protobuf:"bytes,1,opt,name=repository"`
 	Revision   string `json:"revision,omitempty" protobuf:"bytes,2,opt,name=revision"`
 	Directory  string `json:"directory,omitempty" protobuf:"bytes,3,opt,name=directory"`
 }
+
 type SecretVolumeSource struct {
 	SecretName  string      `json:"secretName,omitempty" protobuf:"bytes,1,opt,name=secretName"`
 	Items       []KeyToPath `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
@@ -350,11 +382,13 @@ type SecretProjection struct {
 	Items                []KeyToPath `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
 	Optional             *bool       `json:"optional,omitempty" protobuf:"varint,4,opt,name=optional"`
 }
+
 type NFSVolumeSource struct {
 	Server   string `json:"server" protobuf:"bytes,1,opt,name=server"`
 	Path     string `json:"path" protobuf:"bytes,2,opt,name=path"`
 	ReadOnly bool   `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 }
+
 type ISCSIVolumeSource struct {
 	TargetPortal      string                `json:"targetPortal" protobuf:"bytes,1,opt,name=targetPortal"`
 	IQN               string                `json:"iqn" protobuf:"bytes,2,opt,name=iqn"`
@@ -368,6 +402,7 @@ type ISCSIVolumeSource struct {
 	SecretRef         *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,10,opt,name=secretRef"`
 	InitiatorName     *string               `json:"initiatorName,omitempty" protobuf:"bytes,12,opt,name=initiatorName"`
 }
+
 type ISCSIPersistentVolumeSource struct {
 	TargetPortal      string           `json:"targetPortal" protobuf:"bytes,1,opt,name=targetPortal"`
 	IQN               string           `json:"iqn" protobuf:"bytes,2,opt,name=iqn"`
@@ -381,6 +416,7 @@ type ISCSIPersistentVolumeSource struct {
 	SecretRef         *SecretReference `json:"secretRef,omitempty" protobuf:"bytes,10,opt,name=secretRef"`
 	InitiatorName     *string          `json:"initiatorName,omitempty" protobuf:"bytes,12,opt,name=initiatorName"`
 }
+
 type FCVolumeSource struct {
 	TargetWWNs []string `json:"targetWWNs,omitempty" protobuf:"bytes,1,rep,name=targetWWNs"`
 	Lun        *int32   `json:"lun,omitempty" protobuf:"varint,2,opt,name=lun"`
@@ -388,27 +424,32 @@ type FCVolumeSource struct {
 	ReadOnly   bool     `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 	WWIDs      []string `json:"wwids,omitempty" protobuf:"bytes,5,rep,name=wwids"`
 }
+
 type AzureFileVolumeSource struct {
 	SecretName string `json:"secretName" protobuf:"bytes,1,opt,name=secretName"`
 	ShareName  string `json:"shareName" protobuf:"bytes,2,opt,name=shareName"`
 	ReadOnly   bool   `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 }
+
 type AzureFilePersistentVolumeSource struct {
 	SecretName      string  `json:"secretName" protobuf:"bytes,1,opt,name=secretName"`
 	ShareName       string  `json:"shareName" protobuf:"bytes,2,opt,name=shareName"`
 	ReadOnly        bool    `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 	SecretNamespace *string `json:"secretNamespace" protobuf:"bytes,4,opt,name=secretNamespace"`
 }
+
 type VsphereVirtualDiskVolumeSource struct {
 	VolumePath        string `json:"volumePath" protobuf:"bytes,1,opt,name=volumePath"`
 	FSType            string `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 	StoragePolicyName string `json:"storagePolicyName,omitempty" protobuf:"bytes,3,opt,name=storagePolicyName"`
 	StoragePolicyID   string `json:"storagePolicyID,omitempty" protobuf:"bytes,4,opt,name=storagePolicyID"`
 }
+
 type PhotonPersistentDiskVolumeSource struct {
 	PdID   string `json:"pdID" protobuf:"bytes,1,opt,name=pdID"`
 	FSType string `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 }
+
 type AzureDataDiskCachingMode string
 type AzureDataDiskKind string
 
@@ -429,11 +470,13 @@ type AzureDiskVolumeSource struct {
 	ReadOnly    *bool                     `json:"readOnly,omitempty" protobuf:"varint,5,opt,name=readOnly"`
 	Kind        *AzureDataDiskKind        `json:"kind,omitempty" protobuf:"bytes,6,opt,name=kind,casttype=AzureDataDiskKind"`
 }
+
 type PortworxVolumeSource struct {
 	VolumeID string `json:"volumeID" protobuf:"bytes,1,opt,name=volumeID"`
 	FSType   string `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 	ReadOnly bool   `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 }
+
 type ScaleIOVolumeSource struct {
 	Gateway          string                `json:"gateway" protobuf:"bytes,1,opt,name=gateway"`
 	System           string                `json:"system" protobuf:"bytes,2,opt,name=system"`
@@ -446,6 +489,7 @@ type ScaleIOVolumeSource struct {
 	FSType           string                `json:"fsType,omitempty" protobuf:"bytes,9,opt,name=fsType"`
 	ReadOnly         bool                  `json:"readOnly,omitempty" protobuf:"varint,10,opt,name=readOnly"`
 }
+
 type ScaleIOPersistentVolumeSource struct {
 	Gateway          string           `json:"gateway" protobuf:"bytes,1,opt,name=gateway"`
 	System           string           `json:"system" protobuf:"bytes,2,opt,name=system"`
@@ -458,6 +502,7 @@ type ScaleIOPersistentVolumeSource struct {
 	FSType           string           `json:"fsType,omitempty" protobuf:"bytes,9,opt,name=fsType"`
 	ReadOnly         bool             `json:"readOnly,omitempty" protobuf:"varint,10,opt,name=readOnly"`
 }
+
 type StorageOSVolumeSource struct {
 	VolumeName      string                `json:"volumeName,omitempty" protobuf:"bytes,1,opt,name=volumeName"`
 	VolumeNamespace string                `json:"volumeNamespace,omitempty" protobuf:"bytes,2,opt,name=volumeNamespace"`
@@ -465,6 +510,7 @@ type StorageOSVolumeSource struct {
 	ReadOnly        bool                  `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 	SecretRef       *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,5,opt,name=secretRef"`
 }
+
 type StorageOSPersistentVolumeSource struct {
 	VolumeName      string           `json:"volumeName,omitempty" protobuf:"bytes,1,opt,name=volumeName"`
 	VolumeNamespace string           `json:"volumeNamespace,omitempty" protobuf:"bytes,2,opt,name=volumeNamespace"`
@@ -472,6 +518,7 @@ type StorageOSPersistentVolumeSource struct {
 	ReadOnly        bool             `json:"readOnly,omitempty" protobuf:"varint,4,opt,name=readOnly"`
 	SecretRef       *ObjectReference `json:"secretRef,omitempty" protobuf:"bytes,5,opt,name=secretRef"`
 }
+
 type ConfigMapVolumeSource struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
 	Items                []KeyToPath `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
@@ -488,15 +535,18 @@ type ConfigMapProjection struct {
 	Items                []KeyToPath `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
 	Optional             *bool       `json:"optional,omitempty" protobuf:"varint,4,opt,name=optional"`
 }
+
 type ServiceAccountTokenProjection struct {
 	Audience          string `json:"audience,omitempty" protobuf:"bytes,1,rep,name=audience"`
 	ExpirationSeconds *int64 `json:"expirationSeconds,omitempty" protobuf:"varint,2,opt,name=expirationSeconds"`
 	Path              string `json:"path" protobuf:"bytes,3,opt,name=path"`
 }
+
 type ProjectedVolumeSource struct {
 	Sources     []VolumeProjection `json:"sources" protobuf:"bytes,1,rep,name=sources"`
 	DefaultMode *int32             `json:"defaultMode,omitempty" protobuf:"varint,2,opt,name=defaultMode"`
 }
+
 type VolumeProjection struct {
 	Secret              *SecretProjection              `json:"secret,omitempty" protobuf:"bytes,1,opt,name=secret"`
 	DownwardAPI         *DownwardAPIProjection         `json:"downwardAPI,omitempty" protobuf:"bytes,2,opt,name=downwardAPI"`
@@ -513,10 +563,12 @@ type KeyToPath struct {
 	Path string `json:"path" protobuf:"bytes,2,opt,name=path"`
 	Mode *int32 `json:"mode,omitempty" protobuf:"varint,3,opt,name=mode"`
 }
+
 type LocalVolumeSource struct {
 	Path   string  `json:"path" protobuf:"bytes,1,opt,name=path"`
 	FSType *string `json:"fsType,omitempty" protobuf:"bytes,2,opt,name=fsType"`
 }
+
 type CSIPersistentVolumeSource struct {
 	Driver                     string            `json:"driver" protobuf:"bytes,1,opt,name=driver"`
 	VolumeHandle               string            `json:"volumeHandle" protobuf:"bytes,2,opt,name=volumeHandle"`
@@ -527,6 +579,7 @@ type CSIPersistentVolumeSource struct {
 	NodeStageSecretRef         *SecretReference  `json:"nodeStageSecretRef,omitempty" protobuf:"bytes,7,opt,name=nodeStageSecretRef"`
 	NodePublishSecretRef       *SecretReference  `json:"nodePublishSecretRef,omitempty" protobuf:"bytes,8,opt,name=nodePublishSecretRef"`
 }
+
 type ContainerPort struct {
 	Name          string   `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	HostPort      int32    `json:"hostPort,omitempty" protobuf:"varint,2,opt,name=hostPort"`
@@ -534,6 +587,7 @@ type ContainerPort struct {
 	Protocol      Protocol `json:"protocol,omitempty" protobuf:"bytes,4,opt,name=protocol,casttype=Protocol"`
 	HostIP        string   `json:"hostIP,omitempty" protobuf:"bytes,5,opt,name=hostIP"`
 }
+
 type VolumeMount struct {
 	Name             string                `json:"name" protobuf:"bytes,1,opt,name=name"`
 	ReadOnly         bool                  `json:"readOnly,omitempty" protobuf:"varint,2,opt,name=readOnly"`
@@ -541,6 +595,7 @@ type VolumeMount struct {
 	SubPath          string                `json:"subPath,omitempty" protobuf:"bytes,4,opt,name=subPath"`
 	MountPropagation *MountPropagationMode `json:"mountPropagation,omitempty" protobuf:"bytes,5,opt,name=mountPropagation,casttype=MountPropagationMode"`
 }
+
 type MountPropagationMode string
 
 const (
@@ -553,53 +608,64 @@ type VolumeDevice struct {
 	Name       string `json:"name" protobuf:"bytes,1,opt,name=name"`
 	DevicePath string `json:"devicePath" protobuf:"bytes,2,opt,name=devicePath"`
 }
+
 type EnvVar struct {
 	Name      string        `json:"name" protobuf:"bytes,1,opt,name=name"`
 	Value     string        `json:"value,omitempty" protobuf:"bytes,2,opt,name=value"`
 	ValueFrom *EnvVarSource `json:"valueFrom,omitempty" protobuf:"bytes,3,opt,name=valueFrom"`
 }
+
 type EnvVarSource struct {
 	FieldRef         *ObjectFieldSelector   `json:"fieldRef,omitempty" protobuf:"bytes,1,opt,name=fieldRef"`
 	ResourceFieldRef *ResourceFieldSelector `json:"resourceFieldRef,omitempty" protobuf:"bytes,2,opt,name=resourceFieldRef"`
 	ConfigMapKeyRef  *ConfigMapKeySelector  `json:"configMapKeyRef,omitempty" protobuf:"bytes,3,opt,name=configMapKeyRef"`
 	SecretKeyRef     *SecretKeySelector     `json:"secretKeyRef,omitempty" protobuf:"bytes,4,opt,name=secretKeyRef"`
 }
+
 type ObjectFieldSelector struct {
 	APIVersion string `json:"apiVersion,omitempty" protobuf:"bytes,1,opt,name=apiVersion"`
 	FieldPath  string `json:"fieldPath" protobuf:"bytes,2,opt,name=fieldPath"`
 }
+
 type ResourceFieldSelector struct {
 	ContainerName string `json:"containerName,omitempty" protobuf:"bytes,1,opt,name=containerName"`
 	Resource      string `json:"resource" protobuf:"bytes,2,opt,name=resource"`
 	Divisor       string `json:"divisor,omitempty" protobuf:"bytes,3,opt,name=divisor"`
 }
+
 type ConfigMapKeySelector struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
 	Key                  string `json:"key" protobuf:"bytes,2,opt,name=key"`
 	Optional             *bool  `json:"optional,omitempty" protobuf:"varint,3,opt,name=optional"`
 }
+
 type SecretKeySelector struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
 	Key                  string `json:"key" protobuf:"bytes,2,opt,name=key"`
 	Optional             *bool  `json:"optional,omitempty" protobuf:"varint,3,opt,name=optional"`
 }
+
 type EnvFromSource struct {
 	Prefix       string              `json:"prefix,omitempty" protobuf:"bytes,1,opt,name=prefix"`
 	ConfigMapRef *ConfigMapEnvSource `json:"configMapRef,omitempty" protobuf:"bytes,2,opt,name=configMapRef"`
 	SecretRef    *SecretEnvSource    `json:"secretRef,omitempty" protobuf:"bytes,3,opt,name=secretRef"`
 }
+
 type ConfigMapEnvSource struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
 	Optional             *bool `json:"optional,omitempty" protobuf:"varint,2,opt,name=optional"`
 }
+
 type SecretEnvSource struct {
 	LocalObjectReference `json:",inline" protobuf:"bytes,1,opt,name=localObjectReference"`
 	Optional             *bool `json:"optional,omitempty" protobuf:"varint,2,opt,name=optional"`
 }
+
 type HTTPHeader struct {
 	Name  string `json:"name" protobuf:"bytes,1,opt,name=name"`
 	Value string `json:"value" protobuf:"bytes,2,opt,name=value"`
 }
+
 type HTTPGetAction struct {
 	Path        string       `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
 	Port        IntOrString  `json:"port" protobuf:"bytes,2,opt,name=port"`
@@ -607,6 +673,7 @@ type HTTPGetAction struct {
 	Scheme      URIScheme    `json:"scheme,omitempty" protobuf:"bytes,4,opt,name=scheme,casttype=URIScheme"`
 	HTTPHeaders []HTTPHeader `json:"httpHeaders,omitempty" protobuf:"bytes,5,rep,name=httpHeaders"`
 }
+
 type URIScheme string
 
 const (
@@ -618,9 +685,11 @@ type TCPSocketAction struct {
 	Port IntOrString `json:"port" protobuf:"bytes,1,opt,name=port"`
 	Host string      `json:"host,omitempty" protobuf:"bytes,2,opt,name=host"`
 }
+
 type ExecAction struct {
 	Command []string `json:"command,omitempty" protobuf:"bytes,1,rep,name=command"`
 }
+
 type Probe struct {
 	Handler             `json:",inline" protobuf:"bytes,1,opt,name=handler"`
 	InitialDelaySeconds int32 `json:"initialDelaySeconds,omitempty" protobuf:"varint,2,opt,name=initialDelaySeconds"`
@@ -629,6 +698,7 @@ type Probe struct {
 	SuccessThreshold    int32 `json:"successThreshold,omitempty" protobuf:"varint,5,opt,name=successThreshold"`
 	FailureThreshold    int32 `json:"failureThreshold,omitempty" protobuf:"varint,6,opt,name=failureThreshold"`
 }
+
 type PullPolicy string
 
 const (
@@ -649,6 +719,7 @@ type Capabilities struct {
 	Add  []Capability `json:"add,omitempty" protobuf:"bytes,1,rep,name=add,casttype=Capability"`
 	Drop []Capability `json:"drop,omitempty" protobuf:"bytes,2,rep,name=drop,casttype=Capability"`
 }
+
 type ResourceRequirements struct {
 	Limits   ResourceList `json:"limits,omitempty" protobuf:"bytes,1,rep,name=limits,casttype=ResourceList,castkey=ResourceName"`
 	Requests ResourceList `json:"requests,omitempty" protobuf:"bytes,2,rep,name=requests,casttype=ResourceList,castkey=ResourceName"`
@@ -681,15 +752,18 @@ type Container struct {
 	StdinOnce                bool                     `json:"stdinOnce,omitempty" protobuf:"varint,17,opt,name=stdinOnce"`
 	TTY                      bool                     `json:"tty,omitempty" protobuf:"varint,18,opt,name=tty"`
 }
+
 type Handler struct {
 	Exec      *ExecAction      `json:"exec,omitempty" protobuf:"bytes,1,opt,name=exec"`
 	HTTPGet   *HTTPGetAction   `json:"httpGet,omitempty" protobuf:"bytes,2,opt,name=httpGet"`
 	TCPSocket *TCPSocketAction `json:"tcpSocket,omitempty" protobuf:"bytes,3,opt,name=tcpSocket"`
 }
+
 type Lifecycle struct {
 	PostStart *Handler `json:"postStart,omitempty" protobuf:"bytes,1,opt,name=postStart"`
 	PreStop   *Handler `json:"preStop,omitempty" protobuf:"bytes,2,opt,name=preStop"`
 }
+
 type ConditionStatus string
 
 const (
@@ -702,9 +776,11 @@ type ContainerStateWaiting struct {
 	Reason  string `json:"reason,omitempty" protobuf:"bytes,1,opt,name=reason"`
 	Message string `json:"message,omitempty" protobuf:"bytes,2,opt,name=message"`
 }
+
 type ContainerStateRunning struct {
 	StartedAt Time `json:"startedAt,omitempty" protobuf:"bytes,1,opt,name=startedAt"`
 }
+
 type ContainerStateTerminated struct {
 	ExitCode    int32  `json:"exitCode" protobuf:"varint,1,opt,name=exitCode"`
 	Signal      int32  `json:"signal,omitempty" protobuf:"varint,2,opt,name=signal"`
@@ -714,11 +790,13 @@ type ContainerStateTerminated struct {
 	FinishedAt  Time   `json:"finishedAt,omitempty" protobuf:"bytes,6,opt,name=finishedAt"`
 	ContainerID string `json:"containerID,omitempty" protobuf:"bytes,7,opt,name=containerID"`
 }
+
 type ContainerState struct {
 	Waiting    *ContainerStateWaiting    `json:"waiting,omitempty" protobuf:"bytes,1,opt,name=waiting"`
 	Running    *ContainerStateRunning    `json:"running,omitempty" protobuf:"bytes,2,opt,name=running"`
 	Terminated *ContainerStateTerminated `json:"terminated,omitempty" protobuf:"bytes,3,opt,name=terminated"`
 }
+
 type ContainerStatus struct {
 	Name                 string         `json:"name" protobuf:"bytes,1,opt,name=name"`
 	State                ContainerState `json:"state,omitempty" protobuf:"bytes,2,opt,name=state"`
@@ -729,6 +807,7 @@ type ContainerStatus struct {
 	ImageID              string         `json:"imageID" protobuf:"bytes,7,opt,name=imageID"`
 	ContainerID          string         `json:"containerID,omitempty" protobuf:"bytes,8,opt,name=containerID"`
 }
+
 type PodPhase string
 
 const (
@@ -757,6 +836,7 @@ type PodCondition struct {
 	Reason             string           `json:"reason,omitempty" protobuf:"bytes,5,opt,name=reason"`
 	Message            string           `json:"message,omitempty" protobuf:"bytes,6,opt,name=message"`
 }
+
 type RestartPolicy string
 
 const (
@@ -780,15 +860,18 @@ const (
 type NodeSelector struct {
 	NodeSelectorTerms []NodeSelectorTerm `json:"nodeSelectorTerms" protobuf:"bytes,1,rep,name=nodeSelectorTerms"`
 }
+
 type NodeSelectorTerm struct {
 	MatchExpressions []NodeSelectorRequirement `json:"matchExpressions,omitempty" protobuf:"bytes,1,rep,name=matchExpressions"`
 	MatchFields      []NodeSelectorRequirement `json:"matchFields,omitempty" protobuf:"bytes,2,rep,name=matchFields"`
 }
+
 type NodeSelectorRequirement struct {
 	Key      string               `json:"key" protobuf:"bytes,1,opt,name=key"`
 	Operator NodeSelectorOperator `json:"operator" protobuf:"bytes,2,opt,name=operator,casttype=NodeSelectorOperator"`
 	Values   []string             `json:"values,omitempty" protobuf:"bytes,3,rep,name=values"`
 }
+
 type NodeSelectorOperator string
 
 const (
@@ -803,46 +886,56 @@ const (
 type TopologySelectorTerm struct {
 	MatchLabelExpressions []TopologySelectorLabelRequirement `json:"matchLabelExpressions,omitempty" protobuf:"bytes,1,rep,name=matchLabelExpressions"`
 }
+
 type TopologySelectorLabelRequirement struct {
 	Key    string   `json:"key" protobuf:"bytes,1,opt,name=key"`
 	Values []string `json:"values" protobuf:"bytes,2,rep,name=values"`
 }
+
 type Affinity struct {
 	NodeAffinity    *NodeAffinity    `json:"nodeAffinity,omitempty" protobuf:"bytes,1,opt,name=nodeAffinity"`
 	PodAffinity     *PodAffinity     `json:"podAffinity,omitempty" protobuf:"bytes,2,opt,name=podAffinity"`
 	PodAntiAffinity *PodAntiAffinity `json:"podAntiAffinity,omitempty" protobuf:"bytes,3,opt,name=podAntiAffinity"`
 }
+
 type PodAffinity struct {
 	RequiredDuringSchedulingIgnoredDuringExecution  []PodAffinityTerm         `json:"requiredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,1,rep,name=requiredDuringSchedulingIgnoredDuringExecution"`
 	PreferredDuringSchedulingIgnoredDuringExecution []WeightedPodAffinityTerm `json:"preferredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,2,rep,name=preferredDuringSchedulingIgnoredDuringExecution"`
 }
+
 type PodAntiAffinity struct {
 	RequiredDuringSchedulingIgnoredDuringExecution  []PodAffinityTerm         `json:"requiredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,1,rep,name=requiredDuringSchedulingIgnoredDuringExecution"`
 	PreferredDuringSchedulingIgnoredDuringExecution []WeightedPodAffinityTerm `json:"preferredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,2,rep,name=preferredDuringSchedulingIgnoredDuringExecution"`
 }
+
 type WeightedPodAffinityTerm struct {
 	Weight          int32           `json:"weight" protobuf:"varint,1,opt,name=weight"`
 	PodAffinityTerm PodAffinityTerm `json:"podAffinityTerm" protobuf:"bytes,2,opt,name=podAffinityTerm"`
 }
+
 type PodAffinityTerm struct {
 	LabelSelector *LabelSelector `json:"labelSelector,omitempty" protobuf:"bytes,1,opt,name=labelSelector"`
 	Namespaces    []string       `json:"namespaces,omitempty" protobuf:"bytes,2,rep,name=namespaces"`
 	TopologyKey   string         `json:"topologyKey" protobuf:"bytes,3,opt,name=topologyKey"`
 }
+
 type NodeAffinity struct {
 	RequiredDuringSchedulingIgnoredDuringExecution  *NodeSelector             `json:"requiredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,1,opt,name=requiredDuringSchedulingIgnoredDuringExecution"`
 	PreferredDuringSchedulingIgnoredDuringExecution []PreferredSchedulingTerm `json:"preferredDuringSchedulingIgnoredDuringExecution,omitempty" protobuf:"bytes,2,rep,name=preferredDuringSchedulingIgnoredDuringExecution"`
 }
+
 type PreferredSchedulingTerm struct {
 	Weight     int32            `json:"weight" protobuf:"varint,1,opt,name=weight"`
 	Preference NodeSelectorTerm `json:"preference" protobuf:"bytes,2,opt,name=preference"`
 }
+
 type Taint struct {
 	Key       string      `json:"key" protobuf:"bytes,1,opt,name=key"`
 	Value     string      `json:"value,omitempty" protobuf:"bytes,2,opt,name=value"`
 	Effect    TaintEffect `json:"effect" protobuf:"bytes,3,opt,name=effect,casttype=TaintEffect"`
 	TimeAdded *Time       `json:"timeAdded,omitempty" protobuf:"bytes,4,opt,name=timeAdded"`
 }
+
 type TaintEffect string
 
 const (
@@ -858,6 +951,7 @@ type Toleration struct {
 	Effect            TaintEffect        `json:"effect,omitempty" protobuf:"bytes,4,opt,name=effect,casttype=TaintEffect"`
 	TolerationSeconds *int64             `json:"tolerationSeconds,omitempty" protobuf:"varint,5,opt,name=tolerationSeconds"`
 }
+
 type TolerationOperator string
 
 const (
@@ -868,6 +962,7 @@ const (
 type PodReadinessGate struct {
 	ConditionType PodConditionType `json:"conditionType" protobuf:"bytes,1,opt,name=conditionType,casttype=PodConditionType"`
 }
+
 type PodSpec struct {
 	Volumes                       []Volume               `json:"volumes,omitempty" patchStrategy:"merge,retainKeys" patchMergeKey:"name" protobuf:"bytes,1,rep,name=volumes"`
 	InitContainers                []Container            `json:"initContainers,omitempty" patchStrategy:"merge" patchMergeKey:"name" protobuf:"bytes,20,rep,name=initContainers"`
@@ -909,6 +1004,7 @@ type HostAlias struct {
 	IP        string   `json:"ip,omitempty" protobuf:"bytes,1,opt,name=ip"`
 	Hostnames []string `json:"hostnames,omitempty" protobuf:"bytes,2,rep,name=hostnames"`
 }
+
 type PodSecurityContext struct {
 	SELinuxOptions     *SELinuxOptions `json:"seLinuxOptions,omitempty" protobuf:"bytes,1,opt,name=seLinuxOptions"`
 	RunAsUser          *int64          `json:"runAsUser,omitempty" protobuf:"varint,2,opt,name=runAsUser"`
@@ -918,6 +1014,7 @@ type PodSecurityContext struct {
 	FSGroup            *int64          `json:"fsGroup,omitempty" protobuf:"varint,5,opt,name=fsGroup"`
 	Sysctls            []Sysctl        `json:"sysctls,omitempty" protobuf:"bytes,7,rep,name=sysctls"`
 }
+
 type PodQOSClass string
 
 const (
@@ -931,10 +1028,12 @@ type PodDNSConfig struct {
 	Searches    []string             `json:"searches,omitempty" protobuf:"bytes,2,rep,name=searches"`
 	Options     []PodDNSConfigOption `json:"options,omitempty" protobuf:"bytes,3,rep,name=options"`
 }
+
 type PodDNSConfigOption struct {
 	Name  string  `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Value *string `json:"value,omitempty" protobuf:"bytes,2,opt,name=value"`
 }
+
 type PodStatus struct {
 	Phase                 PodPhase          `json:"phase,omitempty" protobuf:"bytes,1,opt,name=phase,casttype=PodPhase"`
 	Conditions            []PodCondition    `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,2,rep,name=conditions"`
@@ -948,42 +1047,50 @@ type PodStatus struct {
 	ContainerStatuses     []ContainerStatus `json:"containerStatuses,omitempty" protobuf:"bytes,8,rep,name=containerStatuses"`
 	QOSClass              PodQOSClass       `json:"qosClass,omitempty" protobuf:"bytes,9,rep,name=qosClass"`
 }
+
 type PodStatusResult struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Status     PodStatus `json:"status,omitempty" protobuf:"bytes,2,opt,name=status"`
 }
+
 type Pod struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       PodSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     PodStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type PodList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Pod `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type PodTemplateSpec struct {
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       PodSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
+
 type PodTemplate struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Template   PodTemplateSpec `json:"template,omitempty" protobuf:"bytes,2,opt,name=template"`
 }
+
 type PodTemplateList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []PodTemplate `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ReplicationControllerSpec struct {
 	Replicas        *int32            `json:"replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
 	MinReadySeconds int32             `json:"minReadySeconds,omitempty" protobuf:"varint,4,opt,name=minReadySeconds"`
 	Selector        map[string]string `json:"selector,omitempty" protobuf:"bytes,2,rep,name=selector"`
 	Template        *PodTemplateSpec  `json:"template,omitempty" protobuf:"bytes,3,opt,name=template"`
 }
+
 type ReplicationControllerStatus struct {
 	Replicas             int32                            `json:"replicas" protobuf:"varint,1,opt,name=replicas"`
 	FullyLabeledReplicas int32                            `json:"fullyLabeledReplicas,omitempty" protobuf:"varint,2,opt,name=fullyLabeledReplicas"`
@@ -992,6 +1099,7 @@ type ReplicationControllerStatus struct {
 	ObservedGeneration   int64                            `json:"observedGeneration,omitempty" protobuf:"varint,3,opt,name=observedGeneration"`
 	Conditions           []ReplicationControllerCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,6,rep,name=conditions"`
 }
+
 type ReplicationControllerConditionType string
 
 const (
@@ -1005,17 +1113,20 @@ type ReplicationControllerCondition struct {
 	Reason             string                             `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 	Message            string                             `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
 }
+
 type ReplicationController struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       ReplicationControllerSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     ReplicationControllerStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type ReplicationControllerList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ReplicationController `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ServiceAffinity string
 
 const (
@@ -1027,9 +1138,11 @@ const DefaultClientIPServiceAffinitySeconds int32 = 10800
 type SessionAffinityConfig struct {
 	ClientIP *ClientIPConfig `json:"clientIP,omitempty" protobuf:"bytes,1,opt,name=clientIP"`
 }
+
 type ClientIPConfig struct {
 	TimeoutSeconds *int32 `json:"timeoutSeconds,omitempty" protobuf:"varint,1,opt,name=timeoutSeconds"`
 }
+
 type ServiceType string
 
 const (
@@ -1049,13 +1162,16 @@ const (
 type ServiceStatus struct {
 	LoadBalancer LoadBalancerStatus `json:"loadBalancer,omitempty" protobuf:"bytes,1,opt,name=loadBalancer"`
 }
+
 type LoadBalancerStatus struct {
 	Ingress []LoadBalancerIngress `json:"ingress,omitempty" protobuf:"bytes,1,rep,name=ingress"`
 }
+
 type LoadBalancerIngress struct {
 	IP       string `json:"ip,omitempty" protobuf:"bytes,1,opt,name=ip"`
 	Hostname string `json:"hostname,omitempty" protobuf:"bytes,2,opt,name=hostname"`
 }
+
 type ServiceSpec struct {
 	Ports                    []ServicePort                    `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port" protobuf:"bytes,1,rep,name=ports"`
 	Selector                 map[string]string                `json:"selector,omitempty" protobuf:"bytes,2,rep,name=selector"`
@@ -1071,6 +1187,7 @@ type ServiceSpec struct {
 	PublishNotReadyAddresses bool                             `json:"publishNotReadyAddresses,omitempty" protobuf:"varint,13,opt,name=publishNotReadyAddresses"`
 	SessionAffinityConfig    *SessionAffinityConfig           `json:"sessionAffinityConfig,omitempty" protobuf:"bytes,14,opt,name=sessionAffinityConfig"`
 }
+
 type ServicePort struct {
 	Name       string      `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Protocol   Protocol    `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
@@ -1078,6 +1195,7 @@ type ServicePort struct {
 	TargetPort IntOrString `json:"targetPort,omitempty" protobuf:"bytes,4,opt,name=targetPort"`
 	NodePort   int32       `json:"nodePort,omitempty" protobuf:"varint,5,opt,name=nodePort"`
 }
+
 type Service struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1094,6 +1212,7 @@ type ServiceList struct {
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Service `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ServiceAccount struct {
 	TypeMeta                     `json:",inline"`
 	ObjectMeta                   `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1101,37 +1220,44 @@ type ServiceAccount struct {
 	ImagePullSecrets             []LocalObjectReference `json:"imagePullSecrets,omitempty" protobuf:"bytes,3,rep,name=imagePullSecrets"`
 	AutomountServiceAccountToken *bool                  `json:"automountServiceAccountToken,omitempty" protobuf:"varint,4,opt,name=automountServiceAccountToken"`
 }
+
 type ServiceAccountList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ServiceAccount `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type Endpoints struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Subsets    []EndpointSubset `json:"subsets,omitempty" protobuf:"bytes,2,rep,name=subsets"`
 }
+
 type EndpointSubset struct {
 	Addresses         []EndpointAddress `json:"addresses,omitempty" protobuf:"bytes,1,rep,name=addresses"`
 	NotReadyAddresses []EndpointAddress `json:"notReadyAddresses,omitempty" protobuf:"bytes,2,rep,name=notReadyAddresses"`
 	Ports             []EndpointPort    `json:"ports,omitempty" protobuf:"bytes,3,rep,name=ports"`
 }
+
 type EndpointAddress struct {
 	IP        string           `json:"ip" protobuf:"bytes,1,opt,name=ip"`
 	Hostname  string           `json:"hostname,omitempty" protobuf:"bytes,3,opt,name=hostname"`
 	NodeName  *string          `json:"nodeName,omitempty" protobuf:"bytes,4,opt,name=nodeName"`
 	TargetRef *ObjectReference `json:"targetRef,omitempty" protobuf:"bytes,2,opt,name=targetRef"`
 }
+
 type EndpointPort struct {
 	Name     string   `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Port     int32    `json:"port" protobuf:"varint,2,opt,name=port"`
 	Protocol Protocol `json:"protocol,omitempty" protobuf:"bytes,3,opt,name=protocol,casttype=Protocol"`
 }
+
 type EndpointsList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Endpoints `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type NodeSpec struct {
 	PodCIDR             string            `json:"podCIDR,omitempty" protobuf:"bytes,1,opt,name=podCIDR"`
 	ProviderID          string            `json:"providerID,omitempty" protobuf:"bytes,3,opt,name=providerID"`
@@ -1140,9 +1266,11 @@ type NodeSpec struct {
 	ConfigSource        *NodeConfigSource `json:"configSource,omitempty" protobuf:"bytes,6,opt,name=configSource"`
 	DoNotUse_ExternalID string            `json:"externalID,omitempty" protobuf:"bytes,2,opt,name=externalID"`
 }
+
 type NodeConfigSource struct {
 	ConfigMap *ConfigMapNodeConfigSource `json:"configMap,omitempty" protobuf:"bytes,2,opt,name=configMap"`
 }
+
 type ConfigMapNodeConfigSource struct {
 	Namespace        string `json:"namespace" protobuf:"bytes,1,opt,name=namespace"`
 	Name             string `json:"name" protobuf:"bytes,2,opt,name=name"`
@@ -1150,6 +1278,7 @@ type ConfigMapNodeConfigSource struct {
 	ResourceVersion  string `json:"resourceVersion,omitempty" protobuf:"bytes,4,opt,name=resourceVersion"`
 	KubeletConfigKey string `json:"kubeletConfigKey" protobuf:"bytes,5,opt,name=kubeletConfigKey"`
 }
+
 type DaemonEndpoint struct {
 	/*
 		The port tag was not properly in quotes in earlier releases, so it must be
@@ -1158,9 +1287,11 @@ type DaemonEndpoint struct {
 	*/
 	Port int32 `json:"Port" protobuf:"varint,1,opt,name=Port"`
 }
+
 type NodeDaemonEndpoints struct {
 	KubeletEndpoint DaemonEndpoint `json:"kubeletEndpoint,omitempty" protobuf:"bytes,1,opt,name=kubeletEndpoint"`
 }
+
 type NodeSystemInfo struct {
 	MachineID               string `json:"machineID" protobuf:"bytes,1,opt,name=machineID"`
 	SystemUUID              string `json:"systemUUID" protobuf:"bytes,2,opt,name=systemUUID"`
@@ -1173,12 +1304,14 @@ type NodeSystemInfo struct {
 	OperatingSystem         string `json:"operatingSystem" protobuf:"bytes,9,opt,name=operatingSystem"`
 	Architecture            string `json:"architecture" protobuf:"bytes,10,opt,name=architecture"`
 }
+
 type NodeConfigStatus struct {
 	Assigned      *NodeConfigSource `json:"assigned,omitempty" protobuf:"bytes,1,opt,name=assigned"`
 	Active        *NodeConfigSource `json:"active,omitempty" protobuf:"bytes,2,opt,name=active"`
 	LastKnownGood *NodeConfigSource `json:"lastKnownGood,omitempty" protobuf:"bytes,3,opt,name=lastKnownGood"`
 	Error         string            `json:"error,omitempty" protobuf:"bytes,4,opt,name=error"`
 }
+
 type NodeStatus struct {
 	Capacity        ResourceList        `json:"capacity,omitempty" protobuf:"bytes,1,rep,name=capacity,casttype=ResourceList,castkey=ResourceName"`
 	Allocatable     ResourceList        `json:"allocatable,omitempty" protobuf:"bytes,2,rep,name=allocatable,casttype=ResourceList,castkey=ResourceName"`
@@ -1192,27 +1325,33 @@ type NodeStatus struct {
 	VolumesAttached []AttachedVolume    `json:"volumesAttached,omitempty" protobuf:"bytes,10,rep,name=volumesAttached"`
 	Config          *NodeConfigStatus   `json:"config,omitempty" protobuf:"bytes,11,opt,name=config"`
 }
+
 type UniqueVolumeName string
 type AttachedVolume struct {
 	Name       UniqueVolumeName `json:"name" protobuf:"bytes,1,rep,name=name"`
 	DevicePath string           `json:"devicePath" protobuf:"bytes,2,rep,name=devicePath"`
 }
+
 type AvoidPods struct {
 	PreferAvoidPods []PreferAvoidPodsEntry `json:"preferAvoidPods,omitempty" protobuf:"bytes,1,rep,name=preferAvoidPods"`
 }
+
 type PreferAvoidPodsEntry struct {
 	PodSignature PodSignature `json:"podSignature" protobuf:"bytes,1,opt,name=podSignature"`
 	EvictionTime Time         `json:"evictionTime,omitempty" protobuf:"bytes,2,opt,name=evictionTime"`
 	Reason       string       `json:"reason,omitempty" protobuf:"bytes,3,opt,name=reason"`
 	Message      string       `json:"message,omitempty" protobuf:"bytes,4,opt,name=message"`
 }
+
 type PodSignature struct {
 	PodController *OwnerReference `json:"podController,omitempty" protobuf:"bytes,1,opt,name=podController"`
 }
+
 type ContainerImage struct {
 	Names     []string `json:"names" protobuf:"bytes,1,rep,name=names"`
 	SizeBytes int64    `json:"sizeBytes,omitempty" protobuf:"varint,2,opt,name=sizeBytes"`
 }
+
 type NodePhase string
 
 const (
@@ -1240,6 +1379,7 @@ type NodeCondition struct {
 	Reason             string            `json:"reason,omitempty" protobuf:"bytes,5,opt,name=reason"`
 	Message            string            `json:"message,omitempty" protobuf:"bytes,6,opt,name=message"`
 }
+
 type NodeAddressType string
 
 const (
@@ -1254,6 +1394,7 @@ type NodeAddress struct {
 	Type    NodeAddressType `json:"type" protobuf:"bytes,1,opt,name=type,casttype=NodeAddressType"`
 	Address string          `json:"address" protobuf:"bytes,2,opt,name=address"`
 }
+
 type ResourceName string
 
 const (
@@ -1275,11 +1416,13 @@ type Node struct {
 	Spec       NodeSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     NodeStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type NodeList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Node `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type FinalizerName string
 
 const (
@@ -1289,9 +1432,11 @@ const (
 type NamespaceSpec struct {
 	Finalizers []FinalizerName `json:"finalizers,omitempty" protobuf:"bytes,1,rep,name=finalizers,casttype=FinalizerName"`
 }
+
 type NamespaceStatus struct {
 	Phase NamespacePhase `json:"phase,omitempty" protobuf:"bytes,1,opt,name=phase,casttype=NamespacePhase"`
 }
+
 type NamespacePhase string
 
 const (
@@ -1305,19 +1450,23 @@ type Namespace struct {
 	Spec       NamespaceSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     NamespaceStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type NamespaceList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Namespace `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type Binding struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Target     ObjectReference `json:"target" protobuf:"bytes,2,opt,name=target"`
 }
+
 type Preconditions struct {
 	UID *string `json:"uid,omitempty" protobuf:"bytes,1,opt,name=uid,casttype=k8s.io/apimachinery/pkg/string"`
 }
+
 type PodLogOptions struct {
 	TypeMeta     `json:",inline"`
 	Container    string `json:"container,omitempty" protobuf:"bytes,1,opt,name=container"`
@@ -1329,6 +1478,7 @@ type PodLogOptions struct {
 	TailLines    *int64 `json:"tailLines,omitempty" protobuf:"varint,7,opt,name=tailLines"`
 	LimitBytes   *int64 `json:"limitBytes,omitempty" protobuf:"varint,8,opt,name=limitBytes"`
 }
+
 type PodAttachOptions struct {
 	TypeMeta  `json:",inline"`
 	Stdin     bool   `json:"stdin,omitempty" protobuf:"varint,1,opt,name=stdin"`
@@ -1337,6 +1487,7 @@ type PodAttachOptions struct {
 	TTY       bool   `json:"tty,omitempty" protobuf:"varint,4,opt,name=tty"`
 	Container string `json:"container,omitempty" protobuf:"bytes,5,opt,name=container"`
 }
+
 type PodExecOptions struct {
 	TypeMeta  `json:",inline"`
 	Stdin     bool     `json:"stdin,omitempty" protobuf:"varint,1,opt,name=stdin"`
@@ -1346,22 +1497,27 @@ type PodExecOptions struct {
 	Container string   `json:"container,omitempty" protobuf:"bytes,5,opt,name=container"`
 	Command   []string `json:"command" protobuf:"bytes,6,rep,name=command"`
 }
+
 type PodPortForwardOptions struct {
 	TypeMeta `json:",inline"`
 	Ports    []int32 `json:"ports,omitempty" protobuf:"varint,1,rep,name=ports"`
 }
+
 type PodProxyOptions struct {
 	TypeMeta `json:",inline"`
 	Path     string `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
 }
+
 type NodeProxyOptions struct {
 	TypeMeta `json:",inline"`
 	Path     string `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
 }
+
 type ServiceProxyOptions struct {
 	TypeMeta `json:",inline"`
 	Path     string `json:"path,omitempty" protobuf:"bytes,1,opt,name=path"`
 }
+
 type ObjectReference struct {
 	Kind            string `json:"kind,omitempty" protobuf:"bytes,1,opt,name=kind"`
 	Namespace       string `json:"namespace,omitempty" protobuf:"bytes,2,opt,name=namespace"`
@@ -1371,18 +1527,22 @@ type ObjectReference struct {
 	ResourceVersion string `json:"resourceVersion,omitempty" protobuf:"bytes,6,opt,name=resourceVersion"`
 	FieldPath       string `json:"fieldPath,omitempty" protobuf:"bytes,7,opt,name=fieldPath"`
 }
+
 type LocalObjectReference struct {
 	Name string `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 }
+
 type TypedLocalObjectReference struct {
 	APIGroup *string `json:"apiGroup" protobuf:"bytes,1,opt,name=apiGroup"`
 	Kind     string  `json:"kind" protobuf:"bytes,2,opt,name=kind"`
 	Name     string  `json:"name" protobuf:"bytes,3,opt,name=name"`
 }
+
 type SerializedReference struct {
 	TypeMeta  `json:",inline"`
 	Reference ObjectReference `json:"reference,omitempty" protobuf:"bytes,1,opt,name=reference"`
 }
+
 type EventSource struct {
 	Component string `json:"component,omitempty" protobuf:"bytes,1,opt,name=component"`
 	Host      string `json:"host,omitempty" protobuf:"bytes,2,opt,name=host"`
@@ -1411,11 +1571,13 @@ type Event struct {
 	ReportingController string           `json:"reportingComponent" protobuf:"bytes,14,opt,name=reportingComponent"`
 	ReportingInstance   string           `json:"reportingInstance" protobuf:"bytes,15,opt,name=reportingInstance"`
 }
+
 type EventSeries struct {
 	Count            int32            `json:"count,omitempty" protobuf:"varint,1,name=count"`
 	LastObservedTime MicroTime        `json:"lastObservedTime,omitempty" protobuf:"bytes,2,name=lastObservedTime"`
 	State            EventSeriesState `json:"state,omitempty" protobuf:"bytes,3,name=state"`
 }
+
 type EventSeriesState string
 
 const (
@@ -1429,6 +1591,7 @@ type EventList struct {
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Event `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type LimitType string
 
 const (
@@ -1445,14 +1608,17 @@ type LimitRangeItem struct {
 	DefaultRequest       ResourceList `json:"defaultRequest,omitempty" protobuf:"bytes,5,rep,name=defaultRequest,casttype=ResourceList,castkey=ResourceName"`
 	MaxLimitRequestRatio ResourceList `json:"maxLimitRequestRatio,omitempty" protobuf:"bytes,6,rep,name=maxLimitRequestRatio,casttype=ResourceList,castkey=ResourceName"`
 }
+
 type LimitRangeSpec struct {
 	Limits []LimitRangeItem `json:"limits" protobuf:"bytes,1,rep,name=limits"`
 }
+
 type LimitRange struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       LimitRangeSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
+
 type LimitRangeList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1497,14 +1663,17 @@ type ResourceQuotaSpec struct {
 	Scopes        []ResourceQuotaScope `json:"scopes,omitempty" protobuf:"bytes,2,rep,name=scopes,casttype=ResourceQuotaScope"`
 	ScopeSelector *ScopeSelector       `json:"scopeSelector,omitempty" protobuf:"bytes,3,opt,name=scopeSelector"`
 }
+
 type ScopeSelector struct {
 	MatchExpressions []ScopedResourceSelectorRequirement `json:"matchExpressions,omitempty" protobuf:"bytes,1,rep,name=matchExpressions"`
 }
+
 type ScopedResourceSelectorRequirement struct {
 	ScopeName ResourceQuotaScope    `json:"scopeName" protobuf:"bytes,1,opt,name=scopeName"`
 	Operator  ScopeSelectorOperator `json:"operator" protobuf:"bytes,2,opt,name=operator,casttype=ScopedResourceSelectorOperator"`
 	Values    []string              `json:"values,omitempty" protobuf:"bytes,3,rep,name=values"`
 }
+
 type ScopeSelectorOperator string
 
 const (
@@ -1518,17 +1687,20 @@ type ResourceQuotaStatus struct {
 	Hard ResourceList `json:"hard,omitempty" protobuf:"bytes,1,rep,name=hard,casttype=ResourceList,castkey=ResourceName"`
 	Used ResourceList `json:"used,omitempty" protobuf:"bytes,2,rep,name=used,casttype=ResourceList,castkey=ResourceName"`
 }
+
 type ResourceQuota struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       ResourceQuotaSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     ResourceQuotaStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type ResourceQuotaList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ResourceQuota `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type Secret struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1570,17 +1742,20 @@ type SecretList struct {
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Secret `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ConfigMap struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Data       map[string]string `json:"data,omitempty" protobuf:"bytes,2,rep,name=data"`
 	BinaryData map[string][]byte `json:"binaryData,omitempty" protobuf:"bytes,3,rep,name=binaryData"`
 }
+
 type ConfigMapList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ConfigMap `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ComponentConditionType string
 
 const (
@@ -1593,16 +1768,19 @@ type ComponentCondition struct {
 	Message string                 `json:"message,omitempty" protobuf:"bytes,3,opt,name=message"`
 	Error   string                 `json:"error,omitempty" protobuf:"bytes,4,opt,name=error"`
 }
+
 type ComponentStatus struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Conditions []ComponentCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,2,rep,name=conditions"`
 }
+
 type ComponentStatusList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ComponentStatus `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type DownwardAPIVolumeSource struct {
 	Items       []DownwardAPIVolumeFile `json:"items,omitempty" protobuf:"bytes,1,rep,name=items"`
 	DefaultMode *int32                  `json:"defaultMode,omitempty" protobuf:"varint,2,opt,name=defaultMode"`
@@ -1618,9 +1796,11 @@ type DownwardAPIVolumeFile struct {
 	ResourceFieldRef *ResourceFieldSelector `json:"resourceFieldRef,omitempty" protobuf:"bytes,3,opt,name=resourceFieldRef"`
 	Mode             *int32                 `json:"mode,omitempty" protobuf:"varint,4,opt,name=mode"`
 }
+
 type DownwardAPIProjection struct {
 	Items []DownwardAPIVolumeFile `json:"items,omitempty" protobuf:"bytes,1,rep,name=items"`
 }
+
 type SecurityContext struct {
 	Capabilities             *Capabilities   `json:"capabilities,omitempty" protobuf:"bytes,1,opt,name=capabilities"`
 	Privileged               *bool           `json:"privileged,omitempty" protobuf:"varint,2,opt,name=privileged"`
@@ -1632,6 +1812,7 @@ type SecurityContext struct {
 	AllowPrivilegeEscalation *bool           `json:"allowPrivilegeEscalation,omitempty" protobuf:"varint,7,opt,name=allowPrivilegeEscalation"`
 	ProcMount                *ProcMountType  `json:"procMount,omitempty" protobuf:"bytes,9,opt,name=procMount"`
 }
+
 type ProcMountType string
 
 const (
@@ -1645,6 +1826,7 @@ type SELinuxOptions struct {
 	Type  string `json:"type,omitempty" protobuf:"bytes,3,opt,name=type"`
 	Level string `json:"level,omitempty" protobuf:"bytes,4,opt,name=level"`
 }
+
 type RangeAllocation struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1661,6 +1843,7 @@ type Sysctl struct {
 	Name  string `json:"name" protobuf:"bytes,1,opt,name=name"`
 	Value string `json:"value" protobuf:"bytes,2,opt,name=value"`
 }
+
 type NodeResources struct {
 	Capacity ResourceList `protobuf:"bytes,1,rep,name=capacity,casttype=ResourceList,castkey=ResourceName"`
 }
@@ -1693,25 +1876,30 @@ const (
 type Time struct {
 	time.Time `protobuf:"-"`
 }
+
 type IntOrString struct {
 	Type   Type   `protobuf:"varint,1,opt,name=type,casttype=Type"`
 	IntVal int32  `protobuf:"varint,2,opt,name=intVal"`
 	StrVal string `protobuf:"bytes,3,opt,name=strVal"`
 }
+
 type Type int
 type RawExtension struct {
 	Raw    []byte `protobuf:"bytes,1,opt,name=raw"`
 	Object Object `json:"-"`
 }
+
 type Object interface {
 	GetObjectKind() ObjectKind
 	DeepCopyObject() Object
 }
+
 type GroupVersionKind struct {
 	Group   string
 	Version string
 	Kind    string
 }
+
 type ObjectKind interface {
 	SetGroupVersionKind(kind GroupVersionKind)
 	GroupVersionKind() GroupVersionKind
@@ -1722,7 +1910,10 @@ var EmptyObjectKind = emptyObjectKind{}
 type emptyObjectKind struct{}
 
 func (emptyObjectKind) SetGroupVersionKind(gvk GroupVersionKind) {}
-func (emptyObjectKind) GroupVersionKind() GroupVersionKind       { return GroupVersionKind{} }
+
+func (emptyObjectKind) GroupVersionKind() GroupVersionKind {
+	return GroupVersionKind{}
+}
 
 type StatefulSet struct {
 	TypeMeta   `json:",inline"`
@@ -1730,6 +1921,7 @@ type StatefulSet struct {
 	Spec       StatefulSetSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     StatefulSetStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type PodManagementPolicyType string
 
 const (
@@ -1741,6 +1933,7 @@ type StatefulSetUpdateStrategy struct {
 	Type          StatefulSetUpdateStrategyType     `json:"type,omitempty" protobuf:"bytes,1,opt,name=type,casttype=StatefulSetStrategyType"`
 	RollingUpdate *RollingUpdateStatefulSetStrategy `json:"rollingUpdate,omitempty" protobuf:"bytes,2,opt,name=rollingUpdate"`
 }
+
 type StatefulSetUpdateStrategyType string
 
 const (
@@ -1751,6 +1944,7 @@ const (
 type RollingUpdateStatefulSetStrategy struct {
 	Partition *int32 `json:"partition,omitempty" protobuf:"varint,1,opt,name=partition"`
 }
+
 type StatefulSetSpec struct {
 	Replicas             *int32                    `json:"replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
 	Selector             *LabelSelector            `json:"selector" protobuf:"bytes,2,opt,name=selector"`
@@ -1761,6 +1955,7 @@ type StatefulSetSpec struct {
 	UpdateStrategy       StatefulSetUpdateStrategy `json:"updateStrategy,omitempty" protobuf:"bytes,7,opt,name=updateStrategy"`
 	RevisionHistoryLimit *int32                    `json:"revisionHistoryLimit,omitempty" protobuf:"varint,8,opt,name=revisionHistoryLimit"`
 }
+
 type StatefulSetStatus struct {
 	ObservedGeneration int64                  `json:"observedGeneration,omitempty" protobuf:"varint,1,opt,name=observedGeneration"`
 	Replicas           int32                  `json:"replicas" protobuf:"varint,2,opt,name=replicas"`
@@ -1772,6 +1967,7 @@ type StatefulSetStatus struct {
 	CollisionCount     *int32                 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
 	Conditions         []StatefulSetCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,10,rep,name=conditions"`
 }
+
 type StatefulSetConditionType string
 type StatefulSetCondition struct {
 	Type               StatefulSetConditionType `json:"type" protobuf:"bytes,1,opt,name=type,casttype=StatefulSetConditionType"`
@@ -1780,17 +1976,20 @@ type StatefulSetCondition struct {
 	Reason             string                   `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 	Message            string                   `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
 }
+
 type StatefulSetList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []StatefulSet `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type Deployment struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       DeploymentSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     DeploymentStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type DeploymentSpec struct {
 	Replicas                *int32             `json:"replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
 	Selector                *LabelSelector     `json:"selector" protobuf:"bytes,2,opt,name=selector"`
@@ -1810,6 +2009,7 @@ type DeploymentStrategy struct {
 	Type          DeploymentStrategyType   `json:"type,omitempty" protobuf:"bytes,1,opt,name=type,casttype=DeploymentStrategyType"`
 	RollingUpdate *RollingUpdateDeployment `json:"rollingUpdate,omitempty" protobuf:"bytes,2,opt,name=rollingUpdate"`
 }
+
 type DeploymentStrategyType string
 
 const (
@@ -1821,6 +2021,7 @@ type RollingUpdateDeployment struct {
 	MaxUnavailable *IntOrString `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
 	MaxSurge       *IntOrString `json:"maxSurge,omitempty" protobuf:"bytes,2,opt,name=maxSurge"`
 }
+
 type DeploymentStatus struct {
 	ObservedGeneration  int64                 `json:"observedGeneration,omitempty" protobuf:"varint,1,opt,name=observedGeneration"`
 	Replicas            int32                 `json:"replicas,omitempty" protobuf:"varint,2,opt,name=replicas"`
@@ -1831,6 +2032,7 @@ type DeploymentStatus struct {
 	Conditions          []DeploymentCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,6,rep,name=conditions"`
 	CollisionCount      *int32                `json:"collisionCount,omitempty" protobuf:"varint,8,opt,name=collisionCount"`
 }
+
 type DeploymentConditionType string
 
 const (
@@ -1847,15 +2049,18 @@ type DeploymentCondition struct {
 	Reason             string                  `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 	Message            string                  `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
 }
+
 type DeploymentList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []Deployment `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type DaemonSetUpdateStrategy struct {
 	Type          DaemonSetUpdateStrategyType `json:"type,omitempty" protobuf:"bytes,1,opt,name=type"`
 	RollingUpdate *RollingUpdateDaemonSet     `json:"rollingUpdate,omitempty" protobuf:"bytes,2,opt,name=rollingUpdate"`
 }
+
 type DaemonSetUpdateStrategyType string
 
 const (
@@ -1866,6 +2071,7 @@ const (
 type RollingUpdateDaemonSet struct {
 	MaxUnavailable *IntOrString `json:"maxUnavailable,omitempty" protobuf:"bytes,1,opt,name=maxUnavailable"`
 }
+
 type DaemonSetSpec struct {
 	Selector             *LabelSelector          `json:"selector" protobuf:"bytes,1,opt,name=selector"`
 	Template             PodTemplateSpec         `json:"template" protobuf:"bytes,2,opt,name=template"`
@@ -1873,6 +2079,7 @@ type DaemonSetSpec struct {
 	MinReadySeconds      int32                   `json:"minReadySeconds,omitempty" protobuf:"varint,4,opt,name=minReadySeconds"`
 	RevisionHistoryLimit *int32                  `json:"revisionHistoryLimit,omitempty" protobuf:"varint,6,opt,name=revisionHistoryLimit"`
 }
+
 type DaemonSetStatus struct {
 	CurrentNumberScheduled int32                `json:"currentNumberScheduled" protobuf:"varint,1,opt,name=currentNumberScheduled"`
 	NumberMisscheduled     int32                `json:"numberMisscheduled" protobuf:"varint,2,opt,name=numberMisscheduled"`
@@ -1885,6 +2092,7 @@ type DaemonSetStatus struct {
 	CollisionCount         *int32               `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
 	Conditions             []DaemonSetCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,10,rep,name=conditions"`
 }
+
 type DaemonSetConditionType string
 type DaemonSetCondition struct {
 	Type               DaemonSetConditionType `json:"type" protobuf:"bytes,1,opt,name=type,casttype=DaemonSetConditionType"`
@@ -1893,6 +2101,7 @@ type DaemonSetCondition struct {
 	Reason             string                 `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 	Message            string                 `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
 }
+
 type DaemonSet struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1909,23 +2118,27 @@ type DaemonSetList struct {
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []DaemonSet `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ReplicaSet struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec       ReplicaSetSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status     ReplicaSetStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
 type ReplicaSetList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []ReplicaSet `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type ReplicaSetSpec struct {
 	Replicas        *int32          `json:"replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
 	MinReadySeconds int32           `json:"minReadySeconds,omitempty" protobuf:"varint,4,opt,name=minReadySeconds"`
 	Selector        *LabelSelector  `json:"selector" protobuf:"bytes,2,opt,name=selector"`
 	Template        PodTemplateSpec `json:"template,omitempty" protobuf:"bytes,3,opt,name=template"`
 }
+
 type ReplicaSetStatus struct {
 	Replicas             int32                 `json:"replicas" protobuf:"varint,1,opt,name=replicas"`
 	FullyLabeledReplicas int32                 `json:"fullyLabeledReplicas,omitempty" protobuf:"varint,2,opt,name=fullyLabeledReplicas"`
@@ -1934,6 +2147,7 @@ type ReplicaSetStatus struct {
 	ObservedGeneration   int64                 `json:"observedGeneration,omitempty" protobuf:"varint,3,opt,name=observedGeneration"`
 	Conditions           []ReplicaSetCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,6,rep,name=conditions"`
 }
+
 type ReplicaSetConditionType string
 
 const (
@@ -1947,12 +2161,14 @@ type ReplicaSetCondition struct {
 	Reason             string                  `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 	Message            string                  `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
 }
+
 type ControllerRevision struct {
 	TypeMeta   `json:",inline"`
 	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Data       RawExtension `json:"data,omitempty" protobuf:"bytes,2,opt,name=data"`
 	Revision   int64        `json:"revision" protobuf:"varint,3,opt,name=revision"`
 }
+
 type ControllerRevisionList struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -1963,6 +2179,7 @@ type TypeMeta struct {
 	Kind       string `json:"kind,omitempty" protobuf:"bytes,1,opt,name=kind"`
 	APIVersion string `json:"apiVersion,omitempty" protobuf:"bytes,2,opt,name=apiVersion"`
 }
+
 type ListMeta struct {
 	SelfLink        string `json:"selfLink,omitempty" protobuf:"bytes,1,opt,name=selfLink"`
 	ResourceVersion string `json:"resourceVersion,omitempty" protobuf:"bytes,2,opt,name=resourceVersion"`
@@ -1992,10 +2209,12 @@ type ObjectMeta struct {
 	Finalizers                 []string          `json:"finalizers,omitempty" patchStrategy:"merge" protobuf:"bytes,14,rep,name=finalizers"`
 	ClusterName                string            `json:"clusterName,omitempty" protobuf:"bytes,15,opt,name=clusterName"`
 }
+
 type Initializers struct {
 	Pending []Initializer `json:"pending" protobuf:"bytes,1,rep,name=pending" patchStrategy:"merge" patchMergeKey:"name"`
 	Result  *Status       `json:"result,omitempty" protobuf:"bytes,2,opt,name=result"`
 }
+
 type Initializer struct {
 	Name string `json:"name" protobuf:"bytes,1,opt,name=name"`
 }
@@ -2016,6 +2235,7 @@ type OwnerReference struct {
 	Controller         *bool  `json:"controller,omitempty" protobuf:"varint,6,opt,name=controller"`
 	BlockOwnerDeletion *bool  `json:"blockOwnerDeletion,omitempty" protobuf:"varint,7,opt,name=blockOwnerDeletion"`
 }
+
 type ListOptions struct {
 	TypeMeta             `json:",inline"`
 	LabelSelector        string `json:"labelSelector,omitempty" protobuf:"bytes,1,opt,name=labelSelector"`
@@ -2027,16 +2247,19 @@ type ListOptions struct {
 	Limit                int64  `json:"limit,omitempty" protobuf:"varint,7,opt,name=limit"`
 	Continue             string `json:"continue,omitempty" protobuf:"bytes,8,opt,name=continue"`
 }
+
 type ExportOptions struct {
 	TypeMeta `json:",inline"`
 	Export   bool `json:"export" protobuf:"varint,1,opt,name=export"`
 	Exact    bool `json:"exact" protobuf:"varint,2,opt,name=exact"`
 }
+
 type GetOptions struct {
 	TypeMeta             `json:",inline"`
 	ResourceVersion      string `json:"resourceVersion,omitempty" protobuf:"bytes,1,opt,name=resourceVersion"`
 	IncludeUninitialized bool   `json:"includeUninitialized,omitempty" protobuf:"varint,2,opt,name=includeUninitialized"`
 }
+
 type DeletionPropagation string
 
 const (
@@ -2056,15 +2279,18 @@ type DeleteOptions struct {
 	PropagationPolicy  *DeletionPropagation `json:"propagationPolicy,omitempty" protobuf:"varint,4,opt,name=propagationPolicy"`
 	DryRun             []string             `json:"dryRun,omitempty" protobuf:"bytes,5,rep,name=dryRun"`
 }
+
 type CreateOptions struct {
 	TypeMeta             `json:",inline"`
 	DryRun               []string `json:"dryRun,omitempty" protobuf:"bytes,1,rep,name=dryRun"`
 	IncludeUninitialized bool     `json:"includeUninitialized,omitempty" protobuf:"varint,2,opt,name=includeUninitialized"`
 }
+
 type UpdateOptions struct {
 	TypeMeta `json:",inline"`
 	DryRun   []string `json:"dryRun,omitempty" protobuf:"bytes,1,rep,name=dryRun"`
 }
+
 type Status struct {
 	TypeMeta `json:",inline"`
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
@@ -2074,6 +2300,7 @@ type Status struct {
 	Details  *StatusDetails `json:"details,omitempty" protobuf:"bytes,5,opt,name=details"`
 	Code     int32          `json:"code,omitempty" protobuf:"varint,6,opt,name=code"`
 }
+
 type StatusDetails struct {
 	Name              string        `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Group             string        `json:"group,omitempty" protobuf:"bytes,2,opt,name=group"`
@@ -2116,6 +2343,7 @@ type StatusCause struct {
 	Message string    `json:"message,omitempty" protobuf:"bytes,2,opt,name=message"`
 	Field   string    `json:"field,omitempty" protobuf:"bytes,3,opt,name=field"`
 }
+
 type CauseType string
 
 const (
@@ -2132,15 +2360,18 @@ type List struct {
 	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items    []RawExtension `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
 type APIVersions struct {
 	TypeMeta                   `json:",inline"`
 	Versions                   []string                    `json:"versions" protobuf:"bytes,1,rep,name=versions"`
 	ServerAddressByClientCIDRs []ServerAddressByClientCIDR `json:"serverAddressByClientCIDRs" protobuf:"bytes,2,rep,name=serverAddressByClientCIDRs"`
 }
+
 type APIGroupList struct {
 	TypeMeta `json:",inline"`
 	Groups   []APIGroup `json:"groups" protobuf:"bytes,1,rep,name=groups"`
 }
+
 type APIGroup struct {
 	TypeMeta                   `json:",inline"`
 	Name                       string                      `json:"name" protobuf:"bytes,1,opt,name=name"`
@@ -2148,14 +2379,17 @@ type APIGroup struct {
 	PreferredVersion           GroupVersionForDiscovery    `json:"preferredVersion,omitempty" protobuf:"bytes,3,opt,name=preferredVersion"`
 	ServerAddressByClientCIDRs []ServerAddressByClientCIDR `json:"serverAddressByClientCIDRs,omitempty" protobuf:"bytes,4,rep,name=serverAddressByClientCIDRs"`
 }
+
 type ServerAddressByClientCIDR struct {
 	ClientCIDR    string `json:"clientCIDR" protobuf:"bytes,1,opt,name=clientCIDR"`
 	ServerAddress string `json:"serverAddress" protobuf:"bytes,2,opt,name=serverAddress"`
 }
+
 type GroupVersionForDiscovery struct {
 	GroupVersion string `json:"groupVersion" protobuf:"bytes,1,opt,name=groupVersion"`
 	Version      string `json:"version" protobuf:"bytes,2,opt,name=version"`
 }
+
 type APIResource struct {
 	Name         string   `json:"name" protobuf:"bytes,1,opt,name=name"`
 	SingularName string   `json:"singularName" protobuf:"bytes,6,opt,name=singularName"`
@@ -2167,6 +2401,7 @@ type APIResource struct {
 	ShortNames   []string `json:"shortNames,omitempty" protobuf:"bytes,5,rep,name=shortNames"`
 	Categories   []string `json:"categories,omitempty" protobuf:"bytes,7,rep,name=categories"`
 }
+
 type Verbs []string
 
 func (vs Verbs) String() string {
@@ -2178,6 +2413,7 @@ type APIResourceList struct {
 	GroupVersion string        `json:"groupVersion" protobuf:"bytes,1,opt,name=groupVersion"`
 	APIResources []APIResource `json:"resources" protobuf:"bytes,2,rep,name=resources"`
 }
+
 type RootPaths struct {
 	Paths []string `json:"paths" protobuf:"bytes,1,rep,name=paths"`
 }
@@ -2185,26 +2421,32 @@ type RootPaths struct {
 func LabelSelectorQueryParam(version string) string {
 	return "labelSelector"
 }
+
 func FieldSelectorQueryParam(version string) string {
 	return "fieldSelector"
 }
+
 func (apiVersions APIVersions) String() string {
 	return strings.Join(apiVersions.Versions, ",")
 }
+
 func (apiVersions APIVersions) GoString() string {
 	return apiVersions.String()
 }
 
 type Patch struct{}
+
 type LabelSelector struct {
 	MatchLabels      map[string]string          `json:"matchLabels,omitempty" protobuf:"bytes,1,rep,name=matchLabels"`
 	MatchExpressions []LabelSelectorRequirement `json:"matchExpressions,omitempty" protobuf:"bytes,2,rep,name=matchExpressions"`
 }
+
 type LabelSelectorRequirement struct {
 	Key      string                `json:"key" patchStrategy:"merge" patchMergeKey:"key" protobuf:"bytes,1,opt,name=key"`
 	Operator LabelSelectorOperator `json:"operator" protobuf:"bytes,2,opt,name=operator,casttype=LabelSelectorOperator"`
 	Values   []string              `json:"values,omitempty" protobuf:"bytes,3,rep,name=values"`
 }
+
 type LabelSelectorOperator string
 
 const (
