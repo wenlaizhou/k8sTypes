@@ -2458,3 +2458,85 @@ const (
 	LabelSelectorOpExists       LabelSelectorOperator = "Exists"
 	LabelSelectorOpDoesNotExist LabelSelectorOperator = "DoesNotExist"
 )
+
+type StorageClass struct {
+	TypeMeta `json:",inline"`
+
+	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Provisioner string `json:"provisioner" protobuf:"bytes,2,opt,name=provisioner"`
+
+	Parameters map[string]string `json:"parameters,omitempty" protobuf:"bytes,3,rep,name=parameters"`
+
+	ReclaimPolicy *PersistentVolumeReclaimPolicy `json:"reclaimPolicy,omitempty" protobuf:"bytes,4,opt,name=reclaimPolicy,casttype=k8s.io/api/core/PersistentVolumeReclaimPolicy"`
+
+	MountOptions []string `json:"mountOptions,omitempty" protobuf:"bytes,5,opt,name=mountOptions"`
+
+	AllowVolumeExpansion *bool `json:"allowVolumeExpansion,omitempty" protobuf:"varint,6,opt,name=allowVolumeExpansion"`
+
+	VolumeBindingMode *VolumeBindingMode `json:"volumeBindingMode,omitempty" protobuf:"bytes,7,opt,name=volumeBindingMode"`
+
+	AllowedTopologies []TopologySelectorTerm `json:"allowedTopologies,omitempty" protobuf:"bytes,8,rep,name=allowedTopologies"`
+}
+
+type StorageClassList struct {
+	TypeMeta `json:",inline"`
+
+	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Items []StorageClass `json:"items" protobuf:"bytes,2,rep,name=items"`
+}
+
+type VolumeBindingMode string
+
+const (
+	VolumeBindingImmediate VolumeBindingMode = "Immediate"
+
+	VolumeBindingWaitForFirstConsumer VolumeBindingMode = "WaitForFirstConsumer"
+)
+
+type VolumeAttachment struct {
+	TypeMeta `json:",inline"`
+
+	ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Spec VolumeAttachmentSpec `json:"spec" protobuf:"bytes,2,opt,name=spec"`
+
+	Status VolumeAttachmentStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
+}
+
+type VolumeAttachmentList struct {
+	TypeMeta `json:",inline"`
+
+	ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Items []VolumeAttachment `json:"items" protobuf:"bytes,2,rep,name=items"`
+}
+
+type VolumeAttachmentSpec struct {
+	Attacher string `json:"attacher" protobuf:"bytes,1,opt,name=attacher"`
+
+	Source VolumeAttachmentSource `json:"source" protobuf:"bytes,2,opt,name=source"`
+
+	NodeName string `json:"nodeName" protobuf:"bytes,3,opt,name=nodeName"`
+}
+
+type VolumeAttachmentSource struct {
+	PersistentVolumeName *string `json:"persistentVolumeName,omitempty" protobuf:"bytes,1,opt,name=persistentVolumeName"`
+}
+
+type VolumeAttachmentStatus struct {
+	Attached bool `json:"attached" protobuf:"varint,1,opt,name=attached"`
+
+	AttachmentMetadata map[string]string `json:"attachmentMetadata,omitempty" protobuf:"bytes,2,rep,name=attachmentMetadata"`
+
+	AttachError *VolumeError `json:"attachError,omitempty" protobuf:"bytes,3,opt,name=attachError,casttype=VolumeError"`
+
+	DetachError *VolumeError `json:"detachError,omitempty" protobuf:"bytes,4,opt,name=detachError,casttype=VolumeError"`
+}
+
+type VolumeError struct {
+	Time Time `json:"time,omitempty" protobuf:"bytes,1,opt,name=time"`
+
+	Message string `json:"message,omitempty" protobuf:"bytes,2,opt,name=message"`
+}
